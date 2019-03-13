@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Simple Inventory Tracking{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<h1>Categories</h1>
+	
+	<button type="button" class="btn btn-outline-primary">Add Category</button>
+	<button type="button" class="btn btn-outline-secondary">Edit Category</button>
+
+
+
+	{% if all_categories %}
+	<div class="container">
+  		<div class="row">
+			{% for category in all_categories %}
+				<div class="col-sm">
+					
+					<figure class="figure">
+					  <img src="{{ category.icon.url }}" class="figure-img img-fluid rounded" alt="icon for {{ category.name }}" width="300" height="300">
+					  <figcaption class="figure-caption">{{ category.name }}</figcaption>
+					</figure>
+
+			    </div>
+				
+			{% endfor %}
+		</div>
+	</div>
+	{% endif %}
+</div>
+{% endblock %}
