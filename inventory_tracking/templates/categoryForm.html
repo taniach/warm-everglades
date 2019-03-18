@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Add/Edit Category{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	{% if category_id %}
+	<form enctype="multipart/form-data" action="{% url 'get_category' category_id %}" method="post">
+	{% else %}
+
+	<form enctype="multipart/form-data" action="{% url 'get_category' %}" method="post">
+	{% endif %}
+	
+	    {% csrf_token %}
+	    {{ form }}
+	    <input type="submit" value="Submit">
+	</form>
+</div>
+{% endblock %}

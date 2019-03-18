@@ -25,6 +25,9 @@ urlpatterns = [
     path('', include('inventory_tracking.urls')),
 ]
 
+
 urlpatterns += staticfiles_urlpatterns()
-urlpatterns += static(settings.UPLOAD_URL, document_root=settings.UPLOAD_ROOT)
+
+if settings.DEBUG:
+	urlpatterns += static(settings.UPLOAD_URL, document_root=settings.UPLOAD_ROOT)
 

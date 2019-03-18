@@ -6,10 +6,8 @@
 
 <div class="container">
 	<h1>Categories</h1>
-	
-	<button type="button" class="btn btn-outline-primary">Add Category</button>
-	<button type="button" class="btn btn-outline-secondary">Edit Category</button>
 
+	<a href="{% url 'get_category' %}" class="btn btn-outline-primary">Add Category</a>
 
 
 	{% if all_categories %}
@@ -19,8 +17,8 @@
 				<div class="col-sm">
 					
 					<figure class="figure">
-					  <img src="{{ category.icon.url }}" class="figure-img img-fluid rounded" alt="icon for {{ category.name }}" width="300" height="300">
-					  <figcaption class="figure-caption">{{ category.name }}</figcaption>
+					  <a href="{% url 'view_category' category.id %}"><img src="{{ category.icon.url }}" class="figure-img img-fluid rounded" alt="icon for {{ category.name }}" width="300" height="300"></a>
+					  <h4><a href="{% url 'view_category' category.id %}">{{ category.name }}</a> <a class="fa fa-pencil" href="{% url 'get_category' category.id %}"></a> <a class="fa fa-close" href="{% url 'delete_category' category.id %}" onclick="function() { var isValid = confirm('Are you sure ?');if (!isValid) { event.preventDefault();  alert("It wont delete. Yay!");"></a></h4>
 					</figure>
 
 			    </div>

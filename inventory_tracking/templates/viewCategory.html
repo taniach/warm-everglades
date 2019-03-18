@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<h1>Products in {{ category.name }}</h1>
+	
+	<button type="button" class="btn btn-outline-primary">Add Product</button>
+
+
+
+	{% if products %}
+	<div class="container">
+  		<div class="row">
+			{% for product in products %}
+				<div class="col-sm">
+					
+					<figure class="figure">
+					  <img src="../{{ product.icon.url }}" class="figure-img img-fluid rounded" alt="icon for {{ product.description }}" width="300" height="300">
+					  <figcaption class="figure-caption">{{ product.description }}, Quantity: {{ product.quantity }}</figcaption>
+					</figure>
+
+			    </div>
+				
+			{% endfor %}
+		</div>
+	</div>
+	{% endif %}
+</div>
+{% endblock %}
