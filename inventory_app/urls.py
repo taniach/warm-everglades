@@ -26,6 +26,6 @@ urlpatterns = [
 ]
 
 
-urlpatterns += staticfiles_urlpatterns()
-urlpatterns += static(settings.UPLOAD_URL, document_root=settings.UPLOAD_ROOT)
+#urlpatterns += staticfiles_urlpatterns()
 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
