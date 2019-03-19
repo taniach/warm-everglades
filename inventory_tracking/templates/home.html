@@ -5,20 +5,20 @@
 {% block content %}
 
 <div class="container">
-	<h1>Categories</h1>
-
-	<a href="{% url 'get_category' %}" class="btn btn-outline-primary">Add Category</a>
+	<h1 class="h1_spacing">Categories</h1>
+	<a href="{% url 'get_category' %}" class="btn btn-outline-primary btn_spacing">Add Category</a>
 
 
 	{% if all_categories %}
 	<div class="container">
   		<div class="row">
 			{% for category in all_categories %}
-				<div class="col-sm">
+				<div class="col-md-4">
 					
 					<figure class="figure">
-					  <a href="{% url 'view_category' category.id %}"><img src="{{ category.icon.url }}" class="figure-img img-fluid rounded" alt="icon for {{ category.name }}" width="300" height="300"></a>
-					  <h4><a href="{% url 'view_category' category.id %}">{{ category.name }}</a> <a class="fa fa-pencil" href="{% url 'get_category' category.id %}"></a> <a class="fa fa-close" href="{% url 'delete_category' category.id %}" onclick="function() { var isValid = confirm('Are you sure ?');if (!isValid) { event.preventDefault();  alert("It wont delete. Yay!");"></a></h4>
+					  <a href="{% url 'view_category' category.id %}"><img src="{{ category.icon.url }}" class="img-responsive img-thumbnail" alt="icon for {{ category.name }}" width="300" height="300"></a>
+					  <p class="description"><a href="{% url 'view_category' category.id %}">{{ category.name }}</a></p>
+					  <p class="edit_delete_icons"><a class="fa fa-pencil" href="{% url 'get_category' category.id %}"> Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;<a class="fa fa-close confirm-delete" href="{% url 'delete_category' category.id %}"> Delete</a></p>
 					</figure>
 
 			    </div>

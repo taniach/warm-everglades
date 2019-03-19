@@ -1,15 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ category.name }}{% endblock %}
+{% block title %}Search{% endblock %}
 
 {% block content %}
 
 <div class="container">
-	<h1 class="h1_spacing">Products in {{ category.name }}</h1>
-	
-	<a href="{% url 'get_product' %}" class="btn btn-outline-primary btn_spacing">Add Product</a>
-
-
+	<h1 class="h1_spacing">Products containing {{ q }}</h1>
 
 	{% if products %}
 	<div class="container">
@@ -29,6 +25,9 @@
 			{% endfor %}
 		</div>
 	</div>
+	{% else %}
+	<p>No products found</p>
+
 	{% endif %}
 </div>
 {% endblock %}
