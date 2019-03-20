@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .models import Category, Product, Transaction
 from .forms import CategoryForm, ProductForm, SearchForm
 from django.urls import reverse
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 def home(request):

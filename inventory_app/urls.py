@@ -19,10 +19,15 @@ from inventory_tracking import views
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from . import settings
+from django.contrib.auth import logout
+from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
     path('admin/', admin.site.urls),
     path('', include('inventory_tracking.urls')),
+    path('', include('social_django.urls', namespace='social')),
 ]
 
 

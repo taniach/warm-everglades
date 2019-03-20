@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'inventory_tracking',
     'storages',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -68,10 +69,17 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+ 'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+ 'django.contrib.auth.backends.ModelBackend',
+)
 
 WSGI_APPLICATION = 'inventory_app.wsgi.application'
 
@@ -116,6 +124,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+LOGIN_URL = '/auth/login/google-oauth2/'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')  #Paste CLient Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET') #Paste Secret Key
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

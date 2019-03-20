@@ -1,5 +1,7 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from inventory_app import settings
+from django.contrib.auth import logout
 
 urlpatterns = [
 	path('', views.home, name='home'),
