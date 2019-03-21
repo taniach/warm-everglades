@@ -14,6 +14,8 @@
 
     <link rel="stylesheet" href="{% static 'css/my_style.css' %}">
 
+    <link rel="icon" href="{% static 'images/inventory.png' %}" type="image/png" sizes="16x16">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{% static 'js/my_jquery.js' %}"></script>
 
@@ -44,8 +46,8 @@
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
       </form>
 
-      <p class="mybtn" id="userLoginName">You are logged in as {{ user.username }}</p>
-      <a class="btn btn-primary mybtn" href="{% url 'logout' %}">Logout</a>
+      <p class="mybtn" id="userLoginName">Hello {{ user.username }}</p>
+      <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
     {% endif %}
   </div>
 </nav>
