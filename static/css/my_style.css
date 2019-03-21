@@ -29,3 +29,22 @@
 .mybtn {
 	margin-left: 30px;
 }
+
+#userLoginName {
+	margin-bottom: 0;
+}
+
+div#loginGoogle {
+   background-image: url('/static/images/btn_google_signin_dark_normal_web.png');
+   height: 46px;
+   width: 191px;
+}
+
+div#loginGoogle:hover {
+   background-image: url('/static/images/btn_google_signin_dark_pressed_web.png');
+}
+
+.lead {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}

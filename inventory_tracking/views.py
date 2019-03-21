@@ -1,29 +1,31 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from .models import Category, Product, Transaction
+from .models import Category, Product
 from .forms import CategoryForm, ProductForm, SearchForm
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def home(request):
-    all_categories = Category.objects.all()
+    all_categories = Category.objects.filter(user=request.user)
 
     context = {'all_categories' : all_categories}
     return render(request, 'home.html', context)
 
-
+@login_required
 def view_category(request, category_id):
-    products = Product.objects.filter(categoryID=category_id)
-    category = Category.objects.get(pk=category_id)
+    products = Product.objects.filter(user=request.user, categoryID=category_id)
+    category = Category.objects.filter(user=request.user).get(pk=category_id)
 
     context = {'products' : products, 'category' : category}
     return render(request, 'viewCategory.html', context)
 
-
+@login_required
 def get_category(request, category_id=None):
     if category_id:
-        category = Category.objects.get(pk=category_id)
+        category = Category.objects.filter(user=request.user).get(pk=category_id)
     else:
         category = None
 
@@ -32,7 +34,9 @@ def get_category(request, category_id=None):
         form = CategoryForm(request.POST, request.FILES, instance=category)
 
         if form.is_valid():
-            form.save()
+            new_category = form.save(commit=False)
+            new_category.user = request.user
+            new_category.save()
 
             return HttpResponseRedirect(reverse('home', args=None))
 
@@ -42,16 +46,16 @@ def get_category(request, category_id=None):
 
     return render(request, 'categoryForm.html', {'form': form, 'category_id': category_id})
 
-
+@login_required
 def delete_category(request, category_id):
-    category = Category.objects.get(pk=category_id)
+    category = Category.objects.filter(user=request.user).get(pk=category_id)
     category.delete()
     return HttpResponseRedirect(reverse('home', args=None))
 
-
+@login_required
 def get_product(request, product_id=None):
     if product_id:
-        product = Product.objects.get(pk=product_id)
+        product = Product.objects.filter(user=request.user).get(pk=product_id)
     else:
         product = None
 
@@ -60,7 +64,9 @@ def get_product(request, product_id=None):
         form = ProductForm(request.POST, request.FILES, instance=product)
 
         if form.is_valid():
-            form.save()
+            new_product = form.save(commit=False)
+            new_product.user = request.user
+            new_product.save()
 
             return HttpResponseRedirect(reverse('view_category', args=(form.cleaned_data.get('categoryID').id,) ))
 
@@ -70,19 +76,19 @@ def get_product(request, product_id=None):
 
     return render(request, 'productForm.html', {'form': form, 'product_id': product_id})
 
-
+@login_required
 def delete_product(request, product_id):
-    product = Product.objects.get(pk=product_id)
+    product = Product.objects.filter(user=request.user).get(pk=product_id)
     category_id = product.categoryID.id
     product.delete()
 
     return HttpResponseRedirect(reverse('view_category', args=(category_id,) ))
 
-
+@login_required
 def search(request):
     query = request.GET.get('q', '')
     if query:
-        products = Product.objects.filter(description__icontains=query).distinct()
+        products = Product.objects.filter(user=request.user, description__icontains=query).distinct()
     else:
         products = []
 
