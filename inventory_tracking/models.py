@@ -14,8 +14,9 @@ class Product(models.Model):
 	description = models.CharField(max_length=200)
 	quantity = models.IntegerField(default=0)
 	icon = models.ImageField(upload_to = 'images/')
-	categoryID = models.ForeignKey(Category, on_delete=models.CASCADE)
+	categoryID = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="category")
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	lowLimit = models.IntegerField("quantity below which alert is shown for low stock", default=20)
 
 	def __str__(self):
-		return self.description		
+		return self.description

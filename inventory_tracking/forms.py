@@ -16,7 +16,7 @@ class CategoryForm(forms.ModelForm):
 class ProductForm(forms.ModelForm):
 	class Meta:
 		model = Product
-		fields = ['description', 'icon', 'quantity', 'categoryID']
+		fields = ['description', 'icon', 'quantity', 'categoryID', 'lowLimit']
 
 class SearchForm(forms.Form):
     q = forms.CharField(label='Search', max_length=100)
