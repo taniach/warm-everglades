@@ -31,23 +31,23 @@
 
 
   <div class="collapse navbar-collapse" id="navbarColor01">
+    {% if user.is_authenticated %}
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        {% if user.is_authenticated %}
-        <a class="nav-link" href="{% url 'home' %}">Categories</a>
-        {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}">All Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'categories' %}">Categories</a>
       </li>
     </ul>
-     
-
-    {% if user.is_authenticated %}
       <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'search'%}">
         <input class="form-control mr-sm-2" type="text" placeholder="Search" name="q">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
       </form>
 
       <p class="mybtn" id="userLoginName">Hello {{ user.first_name }}</p>
-      <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+      <span class="navbar-nav mybtn"><a class="nav-link" href="{% url 'logout' %}">Logout</a></span>
+      
     {% endif %}
   </div>
 </nav>

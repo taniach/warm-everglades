@@ -6,13 +6,19 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
 @login_required
 def home(request):
+    all_products = Product.objects.filter(user=request.user).order_by('quantity')
+
+    context = {'all_products' : all_products}
+    return render(request, 'home.html', context)
+
+@login_required
+def view_all_categories(request):
     all_categories = Category.objects.filter(user=request.user)
 
     context = {'all_categories' : all_categories}
-    return render(request, 'home.html', context)
+    return render(request, 'categories.html', context)
 
 @login_required
 def view_category(request, category_id):
@@ -22,6 +28,7 @@ def view_category(request, category_id):
     context = {'products' : products, 'category' : category}
     return render(request, 'viewCategory.html', context)
 
+# Add/Edit Category
 @login_required
 def get_category(request, category_id=None):
     if category_id:
@@ -38,7 +45,7 @@ def get_category(request, category_id=None):
             new_category.user = request.user
             new_category.save()
 
-            return HttpResponseRedirect(reverse('home', args=None))
+            return HttpResponseRedirect(reverse('categories', args=None))
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -50,8 +57,9 @@ def get_category(request, category_id=None):
 def delete_category(request, category_id):
     category = Category.objects.filter(user=request.user).get(pk=category_id)
     category.delete()
-    return HttpResponseRedirect(reverse('home', args=None))
+    return HttpResponseRedirect(reverse('categories', args=None))
 
+# Add/Edit Product
 @login_required
 def get_product(request, product_id=None):
     if product_id:

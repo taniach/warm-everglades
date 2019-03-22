@@ -3,32 +3,37 @@
 {% block title %}Simple Inventory Tracking{% endblock %}
 
 {% block content %}
-	{% if user.is_authenticated %}
-		<div class="container">
-			<h1 class="h1_spacing">Categories</h1>
-			<a href="{% url 'get_category' %}" class="btn btn-outline-primary btn_spacing">Add Category</a>
+	<div class="container">
+		<h1 class="h1_spacing">All Products</h1>
 
 
-			{% if all_categories %}
-			<div class="container">
-		  		<div class="row">
-					{% for category in all_categories %}
-						<div class="col-md-4">
-							
-							<figure class="figure">
-							  <a href="{% url 'view_category' category.id %}"><img src="{{ category.icon.url }}" class="img-responsive img-thumbnail" alt="icon for {{ category.name }}" width="300" height="300"></a>
-							  <p class="description"><a href="{% url 'view_category' category.id %}">{{ category.name }}</a></p>
-							  <p class="edit_delete_icons"><a class="fa fa-pencil" href="{% url 'get_category' category.id %}"> Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;<a class="fa fa-close confirm-delete" href="{% url 'delete_category' category.id %}"> Delete</a></p>
-							</figure>
-
-					    </div>
-						
-					{% endfor %}
-				</div>
-			</div>
-			{% endif %}
-		</div>
-	{% else %}
-      <a class="btn btn-primary mybtn" href="{% url 'login' %}">Log In</a>
-    {% endif %}
+		{% if all_products %}
+			<table class="table">
+			  <thead class="thead-dark">
+			    <tr>
+			      <th scope="col">#</th>
+			      <th scope="col">Item</th>
+			      <th scope="col">Quantity</th>
+			      <th scope="col">Category</th>
+			      <th scope="col">Edit</th>
+			      <th scope="col">Delete</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  	{% for product in all_products %}
+				    <tr>
+				      <th scope="row">{{ forloop.counter }}</th>
+				      <td>{{ product.description }}</td>
+				      <td>{{ product.quantity }}</td>
+				      <td>{{ product.categoryID }}</td>
+				      <td><a class="fa fa-pencil" href="{% url 'get_product' product.id %}"></a></td>
+				      <td><a class="fa fa-close confirm-delete" href="{% url 'delete_product' product.id %}"></a></td>
+				    </tr>
+			    {% endfor %}
+			  </tbody>
+			</table>
+		{% else %}
+			<p>No products to display</p>
+		{% endif %}
+	</div>
 {% endblock %}
