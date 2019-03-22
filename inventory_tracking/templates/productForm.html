@@ -6,42 +6,42 @@
 
 <div class="container">
 	{% if product_id %}
-	<h1 class="h1_spacing">Edit Product</h1>
-	<form enctype="multipart/form-data" action="{% url 'get_product' product_id %}" method="post">
+		<h1 class="h1_spacing">Edit Product</h1>
+		<form enctype="multipart/form-data" action="{% url 'get_product' product_id %}" method="post">
 	{% else %}
-	<h1 class="h1_spacing">Add Product</h1>
-	<form enctype="multipart/form-data" action="{% url 'get_product' %}" method="post">
+		<h1 class="h1_spacing">Add Product</h1>
+		<form enctype="multipart/form-data" action="{% url 'get_product' %}" method="post">
 	{% endif %}
 	
-	    {% csrf_token %}
-	    
-	    {{ form.non_field_errors }}
-		<div class="fieldWrapper">
-		    <p>{{ form.description.errors }}</p>
-		    <p>{{ form.description.label_tag }}
-		    {{ form.description }}</p>
-		</div>
-		<div class="fieldWrapper">
-		    <p>{{ form.icon.errors }}</p>
-		    <p>{{ form.icon.label_tag }}
-		    {{ form.icon }}</p>
-		</div>
-		<div class="fieldWrapper">
-		    <p>{{ form.quantity.errors }}</p>
-		    <p>{{ form.quantity.label_tag }}
-		    {{ form.quantity }}</p>
-		</div>
-		<div class="fieldWrapper">
-		    <p>{{ form.categoryID.errors }}</p>
-		    <p>{{ form.categoryID.label_tag }}
-		    {{ form.categoryID }} <a href="{% url 'get_category' %}" class="btn_spacing">Need a new category?</a></p>
-		</div>
-		<div class="fieldWrapper">
-		    <p>{{ form.lowLimit.errors }}</p>
-		    <p>{{ form.lowLimit.label_tag }}
-		    {{ form.lowLimit }}</p>
-		</div>
-	    <input type="submit" value="Save">
-	</form>
+		    {% csrf_token %}
+		    
+		    {{ form.non_field_errors }}
+			<div class="fieldWrapper">
+			    <p>{{ form.description.errors }}</p>
+			    <p>{{ form.description.label_tag }}
+			    {{ form.description }}</p>
+			</div>
+			<div class="fieldWrapper">
+			    <p>{{ form.icon.errors }}</p>
+			    <p>{{ form.icon.label_tag }}
+			    {{ form.icon }}</p>
+			</div>
+			<div class="fieldWrapper">
+			    <p>{{ form.quantity.errors }}</p>
+			    <p>{{ form.quantity.label_tag }}
+			    {{ form.quantity }}</p>
+			</div>
+			<div class="fieldWrapper">
+			    <p>{{ form.categoryID.errors }}</p>
+			    <p>{{ form.categoryID.label_tag }}
+			    {{ form.categoryID }} <a href="{% url 'get_category' %}" class="btn_spacing">Need a new category?</a></p>
+			</div>
+			<div class="fieldWrapper">
+			    <p>{{ form.lowLimit.errors }}</p>
+			    <p>{{ form.lowLimit.label_tag }}
+			    {{ form.lowLimit }}</p>
+			</div>
+		    <input type="submit" value="Save">
+		</form>
 </div>
 {% endblock %}

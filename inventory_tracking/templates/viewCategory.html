@@ -6,29 +6,28 @@
 
 <div class="container">
 	<h1 class="h1_spacing">Products in {{ category.name }}</h1>
-	
 	<a href="{% url 'get_product' %}" class="btn btn-outline-primary btn_spacing">Add Product</a>
 
-
-
 	{% if products %}
-	<div class="container">
-  		<div class="row">
-			{% for product in products %}
-				<div class="col-md-4">
-					
-					<figure class="figure">
-					  <img src="{{ product.icon.url }}" class="img-responsive img-thumbnail" alt="icon for {{ product.description }}" width="250" height="250">
-					  <p class="description">{{ product.description }}</p>
-					  <p class="quantity">Quantity: {{ product.quantity }}</p>
-					  <p class="edit_delete_icons"><a class="fa fa-pencil" href="{% url 'get_product' product.id %}"> Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;<a class="fa fa-close confirm-delete" href="{% url 'delete_product' product.id %}"> Delete</a></p>
-					</figure>
+		<div class="container">
+	  		<div class="row">
+				{% for product in products %}
+					<div class="col-md-4">
+						
+						<figure class="figure">
+						  <img src="{{ product.icon.url }}" class="img-responsive img-thumbnail" alt="icon for {{ product.description }}" width="250" height="250">
+						  <p class="description">{{ product.description }}</p>
+						  <p class="quantity">Quantity: {{ product.quantity }}</p>
+						  <p class="edit_delete_icons"><a class="fa fa-pencil" href="{% url 'get_product' product.id %}"> Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;<a class="fa fa-close confirm-delete" href="{% url 'delete_product' product.id %}"> Delete</a></p>
+						</figure>
 
-			    </div>
-				
-			{% endfor %}
+				    </div>
+					
+				{% endfor %}
+			</div>
 		</div>
-	</div>
+	{% else %}
+		<p>No products found</p>
 	{% endif %}
 </div>
 {% endblock %}

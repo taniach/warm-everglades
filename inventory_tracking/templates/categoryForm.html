@@ -6,16 +6,17 @@
 
 <div class="container">
 	{% if category_id %}
-	<h1 class="h1_spacing">Edit Category</h1>
-	<form enctype="multipart/form-data" action="{% url 'get_category' category_id %}" method="post">
+		<h1 class="h1_spacing">Edit Category</h1>
+		<form enctype="multipart/form-data" action="{% url 'get_category' category_id %}" method="post">
 	{% else %}
-	<h1 class="h1_spacing">Add Category</h1>
-	<form enctype="multipart/form-data" action="{% url 'get_category' %}" method="post">
+		<h1 class="h1_spacing">Add Category</h1>
+		<form enctype="multipart/form-data" action="{% url 'get_category' %}" method="post">
 	{% endif %}
 	
-	    {% csrf_token %}
-	    {{ form.as_p }}
-	    <input type="submit" value="Save">
-	</form>
+		    {% csrf_token %}
+		    {{ form.as_p }}
+		    <input type="submit" value="Save">
+		</form>
 </div>
+
 {% endblock %}

@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 from inventory_tracking import views
 from django.contrib.staticfiles.urls import static
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from . import settings
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView, LogoutView
@@ -29,8 +28,5 @@ urlpatterns = [
     path('', include('inventory_tracking.urls')),
     path('', include('social_django.urls', namespace='social')),
 ]
-
-
-#urlpatterns += staticfiles_urlpatterns()
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

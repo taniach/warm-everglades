@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-#import django_heroku
 import dj_database_url
 from decouple import config, Csv
 
@@ -87,19 +86,6 @@ WSGI_APPLICATION = 'inventory_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'mydatabase',
-#         'USER': 'mydatabaseuser',
-#         'PASSWORD': 'mypassword',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-#         }
-#     }
-# }
-
 DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL')
@@ -125,17 +111,16 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-#LOGIN_URL = '/auth/login/google-oauth2/'
 LOGIN_URL = 'login'
-
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'login'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')  #Paste CLient Key
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET') #Paste Secret Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')  
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET') 
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -150,14 +135,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-# AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-# AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-# AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-# AWS_S3_OBJECT_PARAMETERS = {
-#     'CacheControl': 'max-age=86400',
-# }
-# AWS_LOCATION = 'static'
+
+# AWS S3 settings
 
 USE_S3 = config('USE_S3', cast=bool)
 
@@ -181,25 +160,16 @@ if USE_S3:
     DEFAULT_FILE_STORAGE = 'inventory_app.storage_backends.PublicMediaStorage'
 else:
     STATIC_URL = '/staticfiles/'
-    #STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     MEDIA_URL = '/media/'
-    #MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-#STATIC_URL = '/static/'
-#STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-# MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# Activate Django-Heroku.
-#django_heroku.settings(locals())

@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
+
 class Category(models.Model):
 	name = models.CharField(max_length=200)
 	icon = models.ImageField(upload_to = 'images/')
@@ -9,6 +9,7 @@ class Category(models.Model):
 
 	def __str__(self):
 		return self.name
+
 
 class Product(models.Model):
 	description = models.CharField(max_length=200)

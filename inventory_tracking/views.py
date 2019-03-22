@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
+
 @login_required
 def home(request):
     all_products = Product.objects.filter(user=request.user).order_by('quantity')
@@ -13,12 +14,14 @@ def home(request):
     context = {'all_products' : all_products}
     return render(request, 'home.html', context)
 
+
 @login_required
 def view_all_categories(request):
     all_categories = Category.objects.filter(user=request.user)
 
     context = {'all_categories' : all_categories}
     return render(request, 'categories.html', context)
+
 
 @login_required
 def view_category(request, category_id):
@@ -28,7 +31,8 @@ def view_category(request, category_id):
     context = {'products' : products, 'category' : category}
     return render(request, 'viewCategory.html', context)
 
-# Add/Edit Category
+
+# For add/edit category
 @login_required
 def get_category(request, category_id=None):
     if category_id:
@@ -53,13 +57,15 @@ def get_category(request, category_id=None):
 
     return render(request, 'categoryForm.html', {'form': form, 'category_id': category_id})
 
+
 @login_required
 def delete_category(request, category_id):
     category = Category.objects.filter(user=request.user).get(pk=category_id)
     category.delete()
     return HttpResponseRedirect(reverse('categories', args=None))
 
-# Add/Edit Product
+
+# For add/edit product
 @login_required
 def get_product(request, product_id=None):
     if product_id:
@@ -76,7 +82,8 @@ def get_product(request, product_id=None):
             new_product.user = request.user
             new_product.save()
 
-            return HttpResponseRedirect(reverse('view_category', args=(form.cleaned_data.get('categoryID').id,) ))
+            #return HttpResponseRedirect(reverse('view_category', args=(form.cleaned_data.get('categoryID').id,) ))
+            return HttpResponseRedirect(reverse('home', args=None))
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -84,13 +91,16 @@ def get_product(request, product_id=None):
 
     return render(request, 'productForm.html', {'form': form, 'product_id': product_id})
 
+
 @login_required
 def delete_product(request, product_id):
     product = Product.objects.filter(user=request.user).get(pk=product_id)
     category_id = product.categoryID.id
     product.delete()
 
-    return HttpResponseRedirect(reverse('view_category', args=(category_id,) ))
+    #return HttpResponseRedirect(reverse('view_category', args=(category_id,) ))
+    return HttpResponseRedirect(reverse('home', args=None))
+
 
 @login_required
 def search(request):

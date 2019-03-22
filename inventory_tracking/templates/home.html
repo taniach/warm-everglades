@@ -3,43 +3,44 @@
 {% block title %}Simple Inventory Tracking{% endblock %}
 
 {% block content %}
-	<div class="container">
-		<h1 class="h1_spacing">All Products</h1>
 
-		<a href="{% url 'get_product' %}" class="btn btn-outline-primary btn_spacing">Add Product</a>
+<div class="container">
+	<h1 class="h1_spacing">All Products</h1>
+	<a href="{% url 'get_product' %}" class="btn btn-outline-primary btn_spacing">Add Product</a>
 
 
-		{% if all_products %}
-			<table class="table">
-			  <thead class="thead-dark">
-			    <tr>
-			      <th scope="col">#</th>
-			      <th scope="col">Item</th>
-			      <th scope="col">Quantity</th>
-			      <th scope="col">Category</th>
-			      <th scope="col">Edit</th>
-			      <th scope="col">Delete</th>
-			    </tr>
-			  </thead>
-			  <tbody id="tabledata">
-			  	{% for product in all_products %}
-			  		{% if product.quantity < product.lowLimit %}
-			  			<tr class="table-danger">
-			  		{% else %}
-				    	<tr>
-				    {% endif %}
-					      <th scope="row">{{ forloop.counter }}</th>
-					      <td>{{ product.description }}</td>
-					      <td>{{ product.quantity }}</td>
-					      <td>{{ product.categoryID }}</td>
-					      <td><a class="fa fa-pencil" href="{% url 'get_product' product.id %}"></a></td>
-					      <td><a class="fa fa-close confirm-delete" href="{% url 'delete_product' product.id %}"></a></td>
-					    </tr>
-			    {% endfor %}
-			  </tbody>
-			</table>
-		{% else %}
-			<p>No products to display</p>
-		{% endif %}
-	</div>
+	{% if all_products %}
+		<table class="table">
+		  <thead class="thead-dark">
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">Item</th>
+		      <th scope="col">Quantity</th>
+		      <th scope="col">Category</th>
+		      <th scope="col">Edit</th>
+		      <th scope="col">Delete</th>
+		    </tr>
+		  </thead>
+		  <tbody id="tabledata">
+		  	{% for product in all_products %}
+		  		{% if product.quantity < product.lowLimit %}
+		  			<tr class="table-danger">
+		  		{% else %}
+			    	<tr>
+			    {% endif %}
+				      <th scope="row">{{ forloop.counter }}</th>
+				      <td>{{ product.description }}</td>
+				      <td>{{ product.quantity }}</td>
+				      <td>{{ product.categoryID }}</td>
+				      <td><a class="fa fa-pencil" href="{% url 'get_product' product.id %}"></a></td>
+				      <td><a class="fa fa-close confirm-delete" href="{% url 'delete_product' product.id %}"></a></td>
+				    </tr>
+		    {% endfor %}
+		  </tbody>
+		</table>
+	{% else %}
+		<p>No products to display</p>
+	{% endif %}
+</div>
+
 {% endblock %}
